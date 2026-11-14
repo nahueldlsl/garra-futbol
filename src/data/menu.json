@@ -1,0 +1,680 @@
+{
+  "rootMenuId": "mainMenu",
+  "nodeOrder": [
+    "mainMenu",
+    "calcarCup",
+    "confirmNewCup",
+    "ganadoresCopaCalcar",
+    "ganadoresMuyBuenos",
+    "ganadoresBuenos",
+    "ganadoresMasomenos",
+    "ganadoresMalos",
+    "exhibition",
+    "options",
+    "timeSelection",
+    "speedSelection",
+    "screenAdjust",
+    "help",
+    "exitConfirmation",
+    "endMatchMenu",
+    "endMatchMenuHack",
+    "versusCupMenu",
+    "versusCupMenuConfirm"
+  ],
+  "nodes": {
+    "mainMenu": {
+      "id": "mainMenu",
+      "cancel": "Salir del juego",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Copa Calcar",
+          "rawText": "Copa Calcar",
+          "link": "calcarCup",
+          "info": "¡Derrotá a todos y ganá la Copa Calcar!"
+        },
+        {
+          "tag": "option1",
+          "text": "Amistoso",
+          "rawText": "Amistoso",
+          "link": "exhibition",
+          "info": "¡Jugá solo o contra un amigo!"
+        },
+        {
+          "tag": "option2",
+          "text": "Opciones",
+          "rawText": "Opciones",
+          "link": "options",
+          "info": "Son opciones generales del juego."
+        },
+        {
+          "tag": "option3",
+          "text": "Aprender a jugar",
+          "rawText": "Aprender a jugar",
+          "link": "help",
+          "info": "Ayuda para los nuevos... \ny no tan nuevos."
+        },
+        {
+          "tag": "option4",
+          "text": "Ver los créditos",
+          "rawText": "Ver los cr\\editos",
+          "action": "gotoCredits",
+          "info": "¡Acá podés ver quienes crearon este juego!"
+        },
+        {
+          "tag": "option5",
+          "text": "Salir del juego",
+          "rawText": "Salir del juego",
+          "link": "exitConfirmation",
+          "info": "Elegí esto cuando estés aburrido de tanto jugar. =("
+        }
+      ]
+    },
+    "calcarCup": {
+      "id": "calcarCup",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Continuar",
+          "rawText": "Continuar",
+          "action": "CalcarCup:continue",
+          "info": "¡Continuá desde donde te habías quedado la última vez!",
+          "condFlag": "ContinueCalcarCup"
+        },
+        {
+          "tag": "option1",
+          "text": "Nuevo juego",
+          "rawText": "Nuevo juego",
+          "action": "CalcarCup:startNew:new:confirmNewCup",
+          "info": "¡Arrancá la copa desde cero eligiendo tu equipo favorito!"
+        },
+        {
+          "tag": "option2",
+          "text": "Ver Ganadores",
+          "rawText": "Ver Ganadores",
+          "link": "ganadoresCopaCalcar",
+          "info": "¡Mirá los equipos con los que ya ganaste la Copa Calcar!",
+          "condFlag": "cupHasBeenWonBefore"
+        },
+        {
+          "tag": "option3",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "mainMenu",
+          "info": "Vuelve al menú principal."
+        }
+      ]
+    },
+    "confirmNewCup": {
+      "id": "confirmNewCup",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "¡No quiero empezar de nuevo!",
+          "rawText": "\\!No quiero empezar de nuevo!",
+          "action": "CalcarCup:startNew:abort",
+          "info": ""
+        },
+        {
+          "tag": "option1",
+          "text": "Empezar una nueva Copa",
+          "rawText": "Empezar una nueva Copa",
+          "action": "CalcarCup:startNew:confirm",
+          "info": ""
+        }
+      ]
+    },
+    "ganadoresCopaCalcar": {
+      "id": "ganadoresCopaCalcar",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Equipos muy buenos",
+          "rawText": "Equipos muy buenos",
+          "link": "ganadoresMuyBuenos",
+          "info": "Acá están los equipos muy buenos con los que ganaste la copa.",
+          "condFlag": "winCategory:4"
+        },
+        {
+          "tag": "option1",
+          "text": "Equipos buenos",
+          "rawText": "Equipos buenos",
+          "link": "ganadoresBuenos",
+          "info": "Acá están los equipos buenos con los que ganaste la copa.",
+          "condFlag": "winCategory:3"
+        },
+        {
+          "tag": "option2",
+          "text": "Equipos medios",
+          "rawText": "Equipos medios",
+          "link": "ganadoresMasomenos",
+          "info": "Acá están los equipos medios con los que ganaste la copa.",
+          "condFlag": "winCategory:2"
+        },
+        {
+          "tag": "option3",
+          "text": "Equipos malos",
+          "rawText": "Equipos malos",
+          "link": "ganadoresMalos",
+          "info": "Acá están los equipos malos con los que ganaste la copa.",
+          "condFlag": "winCategory:1"
+        },
+        {
+          "tag": "option4",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "calcarCup",
+          "info": "Vuelve al menú Copa Calcar."
+        }
+      ]
+    },
+    "ganadoresMuyBuenos": {
+      "id": "ganadoresMuyBuenos",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Azul Clarito FC",
+          "rawText": "Azul Clarito FC",
+          "action": "winner:A_celestesFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:A_celestesFC"
+        },
+        {
+          "tag": "option1",
+          "text": "Super Kapos FC",
+          "rawText": "Super Kapos FC",
+          "action": "winner:B_superKaposFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:B_superKaposFC"
+        },
+        {
+          "tag": "option2",
+          "text": "Yaman FC",
+          "rawText": "Yaman FC",
+          "action": "winner:C_blackGoldFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:C_blackGoldFC"
+        },
+        {
+          "tag": "option3",
+          "text": "Mochileros FC",
+          "rawText": "Mochileros FC",
+          "action": "winner:D_mochilaFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:D_mochilaFC"
+        },
+        {
+          "tag": "option9",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "ganadoresCopaCalcar",
+          "info": "Vuelve al menú de ganadores."
+        }
+      ]
+    },
+    "ganadoresBuenos": {
+      "id": "ganadoresBuenos",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Mutantes FC",
+          "rawText": "Mutantes FC",
+          "action": "winner:E_mutantesFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:E_mutantesFC"
+        },
+        {
+          "tag": "option1",
+          "text": "Los Peores FC",
+          "rawText": "Los Peores FC",
+          "action": "winner:F_losPeoresFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:F_losPeoresFC"
+        },
+        {
+          "tag": "option2",
+          "text": "Cubitos FC",
+          "rawText": "Cubitos FC",
+          "action": "winner:G_cubitosFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:G_cubitosFC"
+        },
+        {
+          "tag": "option3",
+          "text": "Dragones FC",
+          "rawText": "Dragones FC",
+          "action": "winner:H_chispitaFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:H_chispitaFC"
+        },
+        {
+          "tag": "option9",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "ganadoresCopaCalcar",
+          "info": "Vuelve al menú de ganadores."
+        }
+      ]
+    },
+    "ganadoresMasomenos": {
+      "id": "ganadoresMasomenos",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Template FC",
+          "rawText": "Template FC",
+          "action": "winner:I_templateFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:I_templateFC"
+        },
+        {
+          "tag": "option1",
+          "text": "Vampiro Ninja FC",
+          "rawText": "Vampiro Ninja FC",
+          "action": "winner:J_vampirosFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:J_vampirosFC"
+        },
+        {
+          "tag": "option2",
+          "text": "Super Felinos FC",
+          "rawText": "Super Felinos FC",
+          "action": "winner:K_felinosFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:K_felinosFC"
+        },
+        {
+          "tag": "option3",
+          "text": "Pastilla FC",
+          "rawText": "Pastilla FC",
+          "action": "winner:L_pastillaFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:L_pastillaFC"
+        },
+        {
+          "tag": "option9",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "ganadoresCopaCalcar",
+          "info": "Vuelve al menú de ganadores."
+        }
+      ]
+    },
+    "ganadoresMalos": {
+      "id": "ganadoresMalos",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Batovi FC",
+          "rawText": "Batovi FC",
+          "action": "winner:M_batoviFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:M_batoviFC"
+        },
+        {
+          "tag": "option1",
+          "text": "Cibernéticos FC",
+          "rawText": "Cibern\\eticos FC",
+          "action": "winner:M_ciberneticosFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:M_ciberneticosFC"
+        },
+        {
+          "tag": "option2",
+          "text": "Super Salados FC",
+          "rawText": "Super Salados FC",
+          "action": "winner:O_losMejoresFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:O_losMejoresFC"
+        },
+        {
+          "tag": "option3",
+          "text": "Singleton FC",
+          "rawText": "Singleton FC",
+          "action": "winner:N_singletonFC",
+          "info": "¡Miralos como ganadores!",
+          "condFlag": "teamWonTheCup:N_singletonFC"
+        },
+        {
+          "tag": "option9",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "ganadoresCopaCalcar",
+          "info": "Vuelve al menú de ganadores."
+        }
+      ]
+    },
+    "exhibition": {
+      "id": "exhibition",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Un jugador",
+          "rawText": "Un jugador",
+          "action": "startNewExhibition:1PvsCPU",
+          "info": "¡Vos contra la máquina!"
+        },
+        {
+          "tag": "option1",
+          "text": "Dos jugadores",
+          "rawText": "Dos jugadores",
+          "action": "startNewExhibition:1Pvs2P",
+          "info": "¡Jugate un partido con tu amigo!"
+        },
+        {
+          "tag": "option2",
+          "text": "Mirar un partido",
+          "rawText": "Mirar un partido",
+          "action": "startNewExhibition:CPUvsCPU",
+          "info": "¡Poné a la máquina a jugar sola a ver quién gana!"
+        },
+        {
+          "tag": "option3",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "mainMenu",
+          "info": "Vuelve al menú principal."
+        }
+      ]
+    },
+    "options": {
+      "id": "options",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Duración de los partidos",
+          "rawText": "Duraci\\on de los partidos",
+          "link": "timeSelection",
+          "info": "Acá elegís cuanto demoran los partidos."
+        },
+        {
+          "tag": "option1",
+          "text": "Velocidad de juego",
+          "rawText": "Velocidad de juego",
+          "link": "speedSelection",
+          "info": "Acá elegís que tan rápido se mueve el partido."
+        },
+        {
+          "tag": "option2",
+          "text": "Pantalla",
+          "rawText": "Pantalla",
+          "link": "screenAdjust",
+          "info": "Son las opciones de pantalla.",
+          "condFlag": "winOnly"
+        },
+        {
+          "tag": "option3",
+          "text": "Apagar o prender sonido",
+          "rawText": "Apagar o prender sonido",
+          "action": "switch:sound",
+          "info": "Cambia entre modo sin sonido y modo con sonido."
+        },
+        {
+          "tag": "option4",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "mainMenu",
+          "info": "Vuelve al menú principal."
+        }
+      ]
+    },
+    "timeSelection": {
+      "id": "timeSelection",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "3 minutos",
+          "rawText": "3 minutos",
+          "action": "select:time:3",
+          "info": "Cada tiempo dura 1 minuto y medio."
+        },
+        {
+          "tag": "option1",
+          "text": "6 minutos",
+          "rawText": "6 minutos",
+          "action": "select:time:6",
+          "info": "Cada tiempo dura 3 minutos."
+        },
+        {
+          "tag": "option2",
+          "text": "10 minutos",
+          "rawText": "10 minutos",
+          "action": "select:time:10",
+          "info": "Cada tiempo dura 5 minutos."
+        },
+        {
+          "tag": "option3",
+          "text": "15 minutos",
+          "rawText": "15 minutos",
+          "action": "select:time:15",
+          "info": "Cada tiempo dura 7 minutos y medio."
+        },
+        {
+          "tag": "option4",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "options",
+          "info": "Vuelve al menú anterior."
+        }
+      ]
+    },
+    "speedSelection": {
+      "id": "speedSelection",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Lento",
+          "rawText": "Lento",
+          "action": "select:speed:0",
+          "info": "Es medio lenteja, pero está bueno para aprender a jugar."
+        },
+        {
+          "tag": "option1",
+          "text": "Normal",
+          "rawText": "Normal",
+          "action": "select:speed:1",
+          "info": "Ni muy lento ni muy rápido."
+        },
+        {
+          "tag": "option2",
+          "text": "Rápido",
+          "rawText": "R\\apido",
+          "action": "select:speed:2",
+          "info": "Un poco más rápido de lo normal."
+        },
+        {
+          "tag": "option3",
+          "text": "Recontra rápido",
+          "rawText": "Recontra r\\apido",
+          "action": "select:speed:3",
+          "info": "¡Demencialmente rápido! El partido es una locura."
+        },
+        {
+          "tag": "option4",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "options",
+          "info": "Vuelve al menú anterior."
+        }
+      ]
+    },
+    "screenAdjust": {
+      "id": "screenAdjust",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Alternar pantalla completa",
+          "rawText": "Alternar pantalla completa",
+          "action": "switch:fullscreenMode",
+          "info": "Cambia entre pantalla completa y ventana."
+        },
+        {
+          "tag": "option1",
+          "text": "Alternar aspecto corregido",
+          "rawText": "Alternar aspecto corregido",
+          "action": "switch:aspectRatio",
+          "info": "Conservar o no la razón de aspecto en pantalla completa.",
+          "condFlag": "wideScreen"
+        },
+        {
+          "tag": "option1",
+          "text": "Alternar alisado de píxeles",
+          "rawText": "Alternar alisado de p\\ixeles",
+          "action": "switch:antialiasing",
+          "info": "Cambia entre píxeles duros o alisados."
+        },
+        {
+          "tag": "option2",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "options",
+          "info": "Vuelve al menú anterior."
+        }
+      ]
+    },
+    "help": {
+      "id": "help",
+      "cancel": "Volver",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Teclas jugando solo",
+          "rawText": "Teclas jugando solo",
+          "action": "showHelp:controles",
+          "info": "Te muestra que teclas se usan cuando jugás solo."
+        },
+        {
+          "tag": "option1",
+          "text": "Teclas en modo dos jugadores",
+          "rawText": "Teclas en modo dos jugadores",
+          "action": "showHelp:controles2p",
+          "info": "Te muestra las teclas que se usan jugando de a dos."
+        },
+        {
+          "tag": "option2",
+          "text": "Técnicas",
+          "rawText": "T\\ecnicas",
+          "action": "showHelp:superTiro:pases:cabezazo:apuntar",
+          "info": "Te muestra varias técnicas del juego."
+        },
+        {
+          "tag": "option3",
+          "text": "Volver",
+          "rawText": "Volver",
+          "link": "mainMenu",
+          "info": "Vuelve al menú anterior."
+        }
+      ]
+    },
+    "exitConfirmation": {
+      "id": "exitConfirmation",
+      "cancel": "Seguir jugando",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Seguir jugando",
+          "rawText": "Seguir jugando",
+          "link": "mainMenu",
+          "info": "¡Elegí esto si te arrepentiste de salir! =)"
+        },
+        {
+          "tag": "option1",
+          "text": "Salir completamente del juego",
+          "rawText": "Salir completamente del juego",
+          "action": "quitGame",
+          "info": "Cerramos y después... ¡¡a jugar afuera!! =D"
+        }
+      ]
+    },
+    "endMatchMenu": {
+      "id": "endMatchMenu",
+      "cancel": "Salir",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Cambiar equipos",
+          "rawText": "Cambiar equipos",
+          "action": "change_teams",
+          "info": "",
+          "condFlag": "friendly"
+        },
+        {
+          "tag": "option1",
+          "text": "Repetir",
+          "rawText": "Repetir",
+          "action": "again",
+          "info": ""
+        },
+        {
+          "tag": "option2",
+          "text": "Salir",
+          "rawText": "Salir",
+          "action": "quit",
+          "info": ""
+        }
+      ]
+    },
+    "endMatchMenuHack": {
+      "id": "endMatchMenuHack",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "Continue",
+          "rawText": "Continue",
+          "action": "continue",
+          "info": ""
+        }
+      ]
+    },
+    "versusCupMenu": {
+      "id": "versusCupMenu",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "¡Seguir jugando!",
+          "rawText": "\\!Seguir jugando!",
+          "action": "continue",
+          "info": ""
+        },
+        {
+          "tag": "option1",
+          "text": "Salir de la copa",
+          "rawText": "Salir de la copa",
+          "link": "versusCupMenuConfirm",
+          "info": ""
+        }
+      ]
+    },
+    "versusCupMenuConfirm": {
+      "id": "versusCupMenuConfirm",
+      "cancel": "No, mejor no",
+      "options": [
+        {
+          "tag": "option0",
+          "text": "No, mejor no",
+          "rawText": "No, mejor no",
+          "link": "versusCupMenu",
+          "info": ""
+        },
+        {
+          "tag": "option1",
+          "text": "¡Si, quiero salir!",
+          "rawText": "\\!Si, quiero salir!",
+          "action": "quit_accept",
+          "info": ""
+        }
+      ]
+    }
+  }
+}

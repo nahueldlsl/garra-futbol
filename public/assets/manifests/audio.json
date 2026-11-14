@@ -1,0 +1,137 @@
+{
+  "sounds": {
+    "bgmNormal": {
+      "path": "audio/music/garrasoccer.ogg",
+      "category": "music",
+      "defaultVolume": 0.25,
+      "loop": true,
+      "sizeBytes": 939956
+    },
+    "tribunaNormal": {
+      "path": "audio/music/tribunaNormal.ogg",
+      "category": "music",
+      "defaultVolume": 0.75,
+      "loop": true,
+      "sizeBytes": 416540
+    },
+    "strongHit": {
+      "path": "audio/fx/menuSelect.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 9766
+    },
+    "action": {
+      "path": "audio/fx/menuMove.ogg",
+      "category": "sfx",
+      "defaultVolume": 0.75,
+      "loop": false,
+      "sizeBytes": 6496
+    },
+    "tribuna:susto": {
+      "path": "audio/fx/tribuna/suspenseEnd.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 41687
+    },
+    "tribuna:ovacion": {
+      "path": "audio/fx/tribuna/success.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 97909
+    },
+    "tribuna:ovacionCorta": {
+      "path": "audio/fx/tribuna/shortSuccess.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 85221
+    },
+    "seMuestraNombreDelQueMetioElGol": {
+      "path": "audio/fx/tribuna/success.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 97909
+    },
+    "kick": {
+      "path": "audio/fx/player/kick.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 5875
+    },
+    "powerKick": {
+      "path": "audio/fx/player/powerKick.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 13631
+    },
+    "slide": {
+      "path": "audio/fx/player/slide.ogg",
+      "category": "sfx",
+      "defaultVolume": 0.4,
+      "loop": false,
+      "sizeBytes": 8299
+    },
+    "catch": {
+      "path": "audio/fx/player/catch.ogg",
+      "category": "sfx",
+      "defaultVolume": 0.7,
+      "loop": false,
+      "sizeBytes": 5942
+    },
+    "step": {
+      "path": "audio/fx/player/step.ogg",
+      "category": "sfx",
+      "defaultVolume": 0.2,
+      "loop": false,
+      "sizeBytes": 5885
+    },
+    "whistle:start": {
+      "path": "audio/fx/silbato/inicial.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 13416
+    },
+    "whistle:end": {
+      "path": "audio/fx/silbato/final.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 17339
+    },
+    "whistle:goal": {
+      "path": "audio/fx/silbato/gol.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 17308
+    },
+    "whistle:short": {
+      "path": "audio/fx/silbato/corto.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 7815
+    },
+    "palo": {
+      "path": "audio/fx/palo.ogg",
+      "category": "sfx",
+      "defaultVolume": 1.0,
+      "loop": false,
+      "sizeBytes": 10568
+    },
+    "introMusic": {
+      "path": "audio/music/garra_soccer_intro.ogg",
+      "category": "music",
+      "defaultVolume": 0.3,
+      "loop": true,
+      "sizeBytes": 49225
+    }
+  }
+}

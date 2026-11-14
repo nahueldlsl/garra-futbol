@@ -1,0 +1,172 @@
+{
+  "formations": {
+    "442": {
+      "id": "442",
+      "goalkeeperNumber": 1,
+      "outfieldPositions": [
+        {
+          "playerNumber": 2,
+          "x": 0.27,
+          "y": 0.2
+        },
+        {
+          "playerNumber": 3,
+          "x": 0.27,
+          "y": 0.8
+        },
+        {
+          "playerNumber": 4,
+          "x": 0.25,
+          "y": 0.4
+        },
+        {
+          "playerNumber": 5,
+          "x": 0.25,
+          "y": 0.6
+        },
+        {
+          "playerNumber": 6,
+          "x": 0.47,
+          "y": 0.2
+        },
+        {
+          "playerNumber": 7,
+          "x": 0.47,
+          "y": 0.8
+        },
+        {
+          "playerNumber": 8,
+          "x": 0.45,
+          "y": 0.6
+        },
+        {
+          "playerNumber": 9,
+          "x": 0.7,
+          "y": 0.75
+        },
+        {
+          "playerNumber": 10,
+          "x": 0.45,
+          "y": 0.4
+        },
+        {
+          "playerNumber": 11,
+          "x": 0.7,
+          "y": 0.25
+        }
+      ]
+    },
+    "433": {
+      "id": "433",
+      "goalkeeperNumber": 1,
+      "outfieldPositions": [
+        {
+          "playerNumber": 2,
+          "x": 0.27,
+          "y": 0.2
+        },
+        {
+          "playerNumber": 3,
+          "x": 0.27,
+          "y": 0.8
+        },
+        {
+          "playerNumber": 4,
+          "x": 0.25,
+          "y": 0.4
+        },
+        {
+          "playerNumber": 5,
+          "x": 0.25,
+          "y": 0.6
+        },
+        {
+          "playerNumber": 6,
+          "x": 0.47,
+          "y": 0.25
+        },
+        {
+          "playerNumber": 7,
+          "x": 0.7,
+          "y": 0.8
+        },
+        {
+          "playerNumber": 8,
+          "x": 0.47,
+          "y": 0.75
+        },
+        {
+          "playerNumber": 9,
+          "x": 0.7,
+          "y": 0.5
+        },
+        {
+          "playerNumber": 10,
+          "x": 0.45,
+          "y": 0.5
+        },
+        {
+          "playerNumber": 11,
+          "x": 0.7,
+          "y": 0.2
+        }
+      ]
+    },
+    "352": {
+      "id": "352",
+      "goalkeeperNumber": 1,
+      "outfieldPositions": [
+        {
+          "playerNumber": 2,
+          "x": 0.27,
+          "y": 0.2
+        },
+        {
+          "playerNumber": 3,
+          "x": 0.27,
+          "y": 0.8
+        },
+        {
+          "playerNumber": 4,
+          "x": 0.25,
+          "y": 0.5
+        },
+        {
+          "playerNumber": 5,
+          "x": 0.45,
+          "y": 0.375
+        },
+        {
+          "playerNumber": 6,
+          "x": 0.47,
+          "y": 0.2
+        },
+        {
+          "playerNumber": 7,
+          "x": 0.45,
+          "y": 0.625
+        },
+        {
+          "playerNumber": 8,
+          "x": 0.47,
+          "y": 0.8
+        },
+        {
+          "playerNumber": 9,
+          "x": 0.7,
+          "y": 0.75
+        },
+        {
+          "playerNumber": 10,
+          "x": 0.47,
+          "y": 0.5
+        },
+        {
+          "playerNumber": 11,
+          "x": 0.7,
+          "y": 0.25
+        }
+      ]
+    }
+  }
+}

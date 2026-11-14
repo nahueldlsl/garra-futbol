@@ -1,0 +1,160 @@
+{
+  "entries": [
+    {
+      "type": "image",
+      "spriteKey": "credits1"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "Producción Ejecutiva",
+      "raw": "Producci\\on Ejecutiva"
+    },
+    {
+      "type": "text",
+      "text": "Horacio Lagos",
+      "raw": "Horacio Lagos"
+    },
+    {
+      "type": "text",
+      "text": "Fernando Sansberro",
+      "raw": "Fernando Sansberro"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "Producción y Diseño",
+      "raw": "Producci\\on y Dise\\mo"
+    },
+    {
+      "type": "text",
+      "text": "Sebastián García",
+      "raw": "Sebasti\\an Garc\\ia"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "Programación",
+      "raw": "Programaci\\on"
+    },
+    {
+      "type": "text",
+      "text": "Federico Medina",
+      "raw": "Federico Medina"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "Scripts",
+      "raw": "Scripts"
+    },
+    {
+      "type": "text",
+      "text": "Sebastián García",
+      "raw": "Sebasti\\an Garc\\ia"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "Motor Gráfico",
+      "raw": "Motor Gr\\afico"
+    },
+    {
+      "type": "text",
+      "text": "Nicolás Olhaberry",
+      "raw": "Nicol\\as Olhaberry"
+    },
+    {
+      "type": "text",
+      "text": "Federico Medina",
+      "raw": "Federico Medina"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "Arte",
+      "raw": "Arte"
+    },
+    {
+      "type": "text",
+      "text": "Sebastián García",
+      "raw": "Sebasti\\an Garc\\ia"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "Música",
+      "raw": "M\\usica"
+    },
+    {
+      "type": "text",
+      "text": "Juan Fornos",
+      "raw": "Juan Fornos"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "heading",
+      "text": "FX",
+      "raw": "FX"
+    },
+    {
+      "type": "text",
+      "text": "Sebastián García",
+      "raw": "Sebasti\\an Garc\\ia"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "image",
+      "spriteKey": "credits3"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "image",
+      "spriteKey": "credits2"
+    }
+  ]
+}

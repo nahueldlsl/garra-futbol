@@ -1,0 +1,17 @@
+# Dependencies & build output
+node_modules/
+dist/
+coverage/
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Local binaries & environment files
+*.exe
+.env
+.env.*

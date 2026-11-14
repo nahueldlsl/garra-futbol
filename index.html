@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Port web 1:1 de Garra Fútbol (Batovi Games Studio) en TypeScript, HTML5 Canvas 2D y Web Audio API."
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Garra Fútbol" />
+    <meta
+      property="og:description"
+      content="Jugá al clásico Garra Fútbol directamente en tu navegador — 1P vs CPU, 1P vs 2P y Copa Calcar."
+    />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <title>Garra Fútbol</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        color: #ffffff;
+        overflow: hidden;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+
+      #app {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000000;
+      }
+
+      #game-canvas {
+        display: block;
+        width: min(100vw, calc(100vh * 4 / 3));
+        height: min(100vh, calc(100vw * 3 / 4));
+        max-width: 100vw;
+        max-height: 100vh;
+        background-color: #000000;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        outline: none;
+      }
+
+      #game-canvas.smooth {
+        image-rendering: auto;
+      }
+
+      .web-toolbar {
+        position: fixed;
+        top: 10px;
+        right: 12px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        opacity: 0.35;
+        transition: opacity 0.2s ease;
+      }
+
+      .web-toolbar:hover,
+      .web-toolbar:focus-within {
+        opacity: 0.95;
+      }
+
+      .web-hint {
+        font-size: 11px;
+        color: #cbd5e1;
+        background: rgba(15, 23, 42, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 6px;
+        padding: 4px 8px;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      .web-btn {
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 11px;
+        color: #f8fafc;
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 6px;
+        padding: 4px 9px;
+      }
+
+      .web-btn:hover {
+        background: rgba(30, 41, 59, 0.95);
+        border-color: rgba(255, 255, 255, 0.45);
+      }
+
+      @media (max-width: 640px) {
+        .web-hint {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app">
+      <div class="web-toolbar" aria-label="Controles de ventana">
+        <span class="web-hint">Flechas: Mover · Z: Tiro · X: Pase · Esc: Pausa</span>
+        <button
+          id="fullscreen-btn"
+          class="web-btn"
+          type="button"
+          aria-pressed="false"
+          title="Alternar pantalla completa"
+        >
+          Pantalla completa
+        </button>
+      </div>
+      <canvas id="game-canvas" width="800" height="600" tabindex="0"></canvas>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

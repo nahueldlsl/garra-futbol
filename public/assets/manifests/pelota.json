@@ -1,0 +1,824 @@
+{
+  "name": "Pelota",
+  "imagePath": "images/characters/Pelota.png",
+  "textureSize": {
+    "w": 256,
+    "h": 32
+  },
+  "defaultReg": {
+    "x": 16.0,
+    "y": 18.0
+  },
+  "atlasFrames": [
+    {
+      "index": 0,
+      "name": "pelota#0_000.png",
+      "x": 135,
+      "y": 0,
+      "w": 16,
+      "h": 10,
+      "regX": 8,
+      "regY": 5,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 10
+      }
+    },
+    {
+      "index": 1,
+      "name": "pelota#0_001.png",
+      "x": 120,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 2,
+      "name": "pelota#0_002.png",
+      "x": 120,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 3,
+      "name": "pelota#0_003.png",
+      "x": 105,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 4,
+      "name": "pelota#0_004.png",
+      "x": 105,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 5,
+      "name": "pelota#0_005.png",
+      "x": 90,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 6,
+      "name": "pelota#0_006.png",
+      "x": 90,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 7,
+      "name": "pelota#0_007.png",
+      "x": 75,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 8,
+      "name": "pelota#0_008.png",
+      "x": 75,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 9,
+      "name": "pelota#0_009.png",
+      "x": 60,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 10,
+      "name": "pelota#0_010.png",
+      "x": 60,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 11,
+      "name": "pelota#0_011.png",
+      "x": 45,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 12,
+      "name": "pelota#0_012.png",
+      "x": 45,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 13,
+      "name": "pelota#0_013.png",
+      "x": 30,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 14,
+      "name": "pelota#0_014.png",
+      "x": 30,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 15,
+      "name": "pelota#0_015.png",
+      "x": 15,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 16,
+      "name": "pelota#0_016.png",
+      "x": 15,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 17,
+      "name": "pelota#0_017.png",
+      "x": 0,
+      "y": 15,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 18,
+      "name": "pelota#0_018.png",
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 14,
+      "regX": 7,
+      "regY": 9,
+      "contentBbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    }
+  ],
+  "fgtImages": [
+    {
+      "index": 0,
+      "groupId": 0,
+      "frameIndex": 0,
+      "pivotX": 8,
+      "pivotY": 9,
+      "rect": {
+        "x": 135,
+        "y": 0,
+        "w": 16,
+        "h": 10
+      }
+    },
+    {
+      "index": 1,
+      "groupId": 0,
+      "frameIndex": 1,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 120,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 2,
+      "groupId": 0,
+      "frameIndex": 2,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 120,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 3,
+      "groupId": 0,
+      "frameIndex": 3,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 105,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 4,
+      "groupId": 0,
+      "frameIndex": 4,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 105,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 5,
+      "groupId": 0,
+      "frameIndex": 5,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 90,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 6,
+      "groupId": 0,
+      "frameIndex": 6,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 90,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 7,
+      "groupId": 0,
+      "frameIndex": 7,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 75,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 8,
+      "groupId": 0,
+      "frameIndex": 8,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 75,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 9,
+      "groupId": 0,
+      "frameIndex": 9,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 60,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 10,
+      "groupId": 0,
+      "frameIndex": 10,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 60,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 11,
+      "groupId": 0,
+      "frameIndex": 11,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 45,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 12,
+      "groupId": 0,
+      "frameIndex": 12,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 45,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 13,
+      "groupId": 0,
+      "frameIndex": 13,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 30,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 14,
+      "groupId": 0,
+      "frameIndex": 14,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 30,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 15,
+      "groupId": 0,
+      "frameIndex": 15,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 15,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 16,
+      "groupId": 0,
+      "frameIndex": 16,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 15,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 17,
+      "groupId": 0,
+      "frameIndex": 17,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 0,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      }
+    },
+    {
+      "index": 18,
+      "groupId": 0,
+      "frameIndex": 18,
+      "pivotX": 7,
+      "pivotY": 13,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 14
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": 0,
+      "loop": true,
+      "loopFrameRaw": 1,
+      "loopFrameIndex": 0,
+      "totalTicks": 20,
+      "frames": [
+        {
+          "groupId": 0,
+          "frameIndex": 1,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 2,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 3,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 4,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 5,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "loop": true,
+      "loopFrameRaw": 1,
+      "loopFrameIndex": 0,
+      "totalTicks": 52,
+      "frames": [
+        {
+          "groupId": 0,
+          "frameIndex": 6,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 7,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 8,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 9,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 10,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 11,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 12,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 13,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 14,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 15,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 16,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 17,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "groupId": 0,
+          "frameIndex": 18,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 4,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "loop": false,
+      "loopFrameRaw": -1,
+      "loopFrameIndex": null,
+      "totalTicks": 8,
+      "frames": [
+        {
+          "groupId": 0,
+          "frameIndex": 0,
+          "offset": {
+            "dx": 0,
+            "dy": 0
+          },
+          "ticks": 8,
+          "flip": "NONE",
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    }
+  ]
+}

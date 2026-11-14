@@ -1,0 +1,220 @@
+{
+  "texts": {
+    "info_captain": {
+      "text": "Capitán: ",
+      "raw": "Capit\\an: "
+    },
+    "info_formation": {
+      "text": "Formación: ",
+      "raw": "Formaci\\on: "
+    },
+    "info_general": {
+      "text": "Info: ",
+      "raw": "Info: "
+    },
+    "info_theGood": {
+      "text": "Lo bueno: ",
+      "raw": "Lo bueno: "
+    },
+    "info_theBad": {
+      "text": "Lo malo: ",
+      "raw": "Lo malo: "
+    },
+    "ball_icon": {
+      "text": "Ç",
+      "raw": "\\C"
+    },
+    "stat_attack": {
+      "text": " Ataque:",
+      "raw": " Ataque:"
+    },
+    "stat_medium": {
+      "text": "  Medio:",
+      "raw": "  Medio:"
+    },
+    "stat_defense": {
+      "text": "Defensa:",
+      "raw": "Defensa:"
+    },
+    "stat_goalkeeper": {
+      "text": " Golero:",
+      "raw": " Golero:"
+    },
+    "gameSpeed_Slow": {
+      "text": "Lento",
+      "raw": "Lento"
+    },
+    "gameSpeed_Normal": {
+      "text": "Normal",
+      "raw": "Normal"
+    },
+    "gameSpeed_Fast": {
+      "text": "Rápido",
+      "raw": "R\\apido"
+    },
+    "gameSpeed_SuperFast": {
+      "text": "Recontra rápido",
+      "raw": "Recontra r\\apido"
+    },
+    "menuHud_Minutes": {
+      "text": " Minutos",
+      "raw": " Minutos"
+    },
+    "pause_continue": {
+      "text": " ¡Seguir jugando! ",
+      "raw": " \\!Seguir jugando! "
+    },
+    "pause_exit": {
+      "text": " Salir del partido ",
+      "raw": " Salir del partido "
+    },
+    "pause_exit_yes": {
+      "text": " Si, quiero salir ",
+      "raw": " Si, quiero salir "
+    },
+    "pause_exit_no": {
+      "text": " Mejor no... ",
+      "raw": " Mejor no... "
+    },
+    "goal_separator": {
+      "text": "-",
+      "raw": "-"
+    },
+    "calcarCup_win": {
+      "text": "¡Ganaste!",
+      "raw": "\\!Ganaste!"
+    },
+    "calcarCup_draw": {
+      "text": "Empate",
+      "raw": "Empate"
+    },
+    "calcarCup_fail": {
+      "text": "Perdiste",
+      "raw": "Perdiste"
+    },
+    "1PvsCPU_win": {
+      "text": "¡Ganaste!",
+      "raw": "\\!Ganaste!"
+    },
+    "1PvsCPU_draw": {
+      "text": "¡Empate!",
+      "raw": "\\¡Empate!"
+    },
+    "1PvsCPU_fail": {
+      "text": "Perdiste",
+      "raw": "Perdiste"
+    },
+    "1Pvs2P_win": {
+      "text": "¡Ganó J1!",
+      "raw": "\\!Gan\\o J1!"
+    },
+    "1Pvs2P_draw": {
+      "text": "¡Empate!",
+      "raw": "\\!Empate!"
+    },
+    "1Pvs2P_fail": {
+      "text": "¡Ganó J2!",
+      "raw": "\\!Gan\\o J2!"
+    },
+    "CPUvsCPU_win": {
+      "text": "¡Ganó CPU1!",
+      "raw": "\\!Gan\\o CPU1!"
+    },
+    "CPUvsCPU_draw": {
+      "text": "¡Empate!",
+      "raw": "\\!Empate!"
+    },
+    "CPUvsCPU_fail": {
+      "text": "¡Ganó CPU2!",
+      "raw": "\\!Gan\\o CPU2!"
+    },
+    "generic_team_win_prev": {
+      "text": "¡Ganó ",
+      "raw": "\\!Gan\\o "
+    },
+    "generic_team_win_next": {
+      "text": "!",
+      "raw": "!"
+    },
+    "pressEnter": {
+      "text": "¡Apretá ENTER para comenzar!",
+      "raw": "\\!Apret\\a ENTER para comenzar!"
+    },
+    "versus": {
+      "text": "vs",
+      "raw": "vs"
+    },
+    "vsAmistoso": {
+      "text": "Amistoso",
+      "raw": "Amistoso"
+    },
+    "vsCalcarOther": {
+      "text": "Eliminatorias ",
+      "raw": "Eliminatorias "
+    },
+    "vsCalcarOctavos": {
+      "text": "Octavos de final",
+      "raw": "Octavos de final"
+    },
+    "vsCalcarCuartos": {
+      "text": "Cuartos de final",
+      "raw": "Cuartos de final"
+    },
+    "vsCalcarSemiFinal": {
+      "text": "¡Semifinal!",
+      "raw": "\\!Semifinal!"
+    },
+    "vsCalcarFinal": {
+      "text": "¡Final!",
+      "raw": "\\!Final!"
+    },
+    "CalcarCupVictory": {
+      "text": "¡Ganaste la copa Calcar!",
+      "raw": "\\!Ganaste la copa Calcar!"
+    },
+    "CalcarCupCongrats": {
+      "text": "¡Felicidades!",
+      "raw": "\\!Felicidades!"
+    },
+    "CalcarCupStartNew": {
+      "text": "Si elegís empezar una nueva Copa Calcar ahora, tu progreso anterior se perderá...",
+      "raw": "Si eleg\\is empezar una nueva Copa Calcar ahora, tu progreso anterior se perder\\a..."
+    },
+    "CalcarCupStartNewB": {
+      "text": "vs ",
+      "raw": "vs "
+    },
+    "selectTip_cup": {
+      "text": "Elegí tu equipo.",
+      "raw": "Eleg\\i tu equipo."
+    },
+    "selectTip_1PvsCPU_1": {
+      "text": "Elegí tu equipo.",
+      "raw": "Eleg\\i tu equipo."
+    },
+    "selectTip_1PvsCPU_2": {
+      "text": "Ahora elegí tu rival.",
+      "raw": "Ahora eleg\\i tu rival."
+    },
+    "selectTip_1Pvs2P_1": {
+      "text": "Elegí el equipo del jugador 1.",
+      "raw": "Eleg\\i el equipo del jugador 1."
+    },
+    "selectTip_1Pvs2P_2": {
+      "text": "Ahora elegí el equipo del jugador 2.",
+      "raw": "Ahora eleg\\i el equipo del jugador 2."
+    },
+    "selectTip_CPUvsCPU_1": {
+      "text": "Elegí un equipo.",
+      "raw": "Eleg\\i un equipo."
+    },
+    "selectTip_CPUvsCPU_2": {
+      "text": "Ahora elegí el otro.",
+      "raw": "Ahora eleg\\i el otro."
+    },
+    "credits": {
+      "text": "Créditos",
+      "raw": "Cr\\editos"
+    }
+  }
+}
