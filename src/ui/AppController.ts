@@ -20,7 +20,7 @@ import type { TeamControlMode } from '../entities/Team';
 import { type InputManager } from '../input/InputManager';
 import { AssetLoader } from '../rendering/AssetLoader';
 import { MatchRenderer } from '../rendering/MatchRenderer';
-import { drawStaticSprite } from '../rendering/SpriteAnimator';
+import { drawAnimatedSprite, drawStaticSprite } from '../rendering/SpriteAnimator';
 
 interface ActiveMatchConfig {
   mode: MatchMode;
@@ -237,7 +237,7 @@ export class AppController {
         } else {
           drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'garraFutbolLogo', 0, 0, 0);
           if (Math.floor(this.logoTimer * 3) % 2 === 0) {
-            drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'pressEnter', 0, 200, 258);
+            drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'pressEnter', 0, 200, 208);
           }
         }
         this.renderer.present(this.dataRepo.getOptions().smoothPixels);
@@ -371,11 +371,18 @@ export class AppController {
           this.input.getAction('menu', 'shot').justPressed;
         const cancel = this.input.getAction('menu', 'cancel').justPressed;
 
-        if (cancel && this.selectionMode !== 'CALCAR_CUP') {
-          this.states.transitionTo('teamSelection');
+        if (cancel) {
+          this.events.emit('sound:play', { key: 'action', volumeScale: 1.0 });
+          if (this.selectionMode === 'CALCAR_CUP') {
+            this.menuNodeId = 'calcarCup';
+            this.menuSelectedIndex = 0;
+            this.states.transitionTo('mainMenu');
+          } else {
+            this.states.transitionTo('teamSelection');
+          }
           return;
         }
-        if ((confirm && this.vsTimer > 0.25) || this.vsTimer >= 3.5) {
+        if (confirm && this.vsTimer > 0.25) {
           this.events.emit('sound:play', { key: 'strongHit', volumeScale: 1.0 });
           this.states.transitionTo('presentation');
         }
@@ -1073,80 +1080,125 @@ export class AppController {
   private renderVersusScreen(): void {
     if (!this.manifests || !this.renderer || !this.activeMatchConfig) return;
     const ctx = this.renderer.getVirtualContext();
-    drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'backPattern_blue', 0, 0, 0);
-    drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'backPattern_blue', 0, 150, 0);
-    drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'backPattern_blue', 0, 300, 0);
-    drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'backPattern_blue', 0, 0, 162);
-    drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'backPattern_blue', 0, 150, 162);
-    drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'backPattern_blue', 0, 300, 162);
+    this.renderScrollingPattern(ctx, 'backPattern_blue');
+
+    drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'backTip', 0, 27, 14);
 
     const cfg = this.activeMatchConfig;
     const title =
       cfg.mode === 'CALCAR_CUP'
         ? this.dataRepo.getCupRoundLabel(cfg.cupRound)
         : this.dataRepo.getText('vsAmistoso');
-    this.renderer.fonts.drawText(ctx, 'mediumFont', title, VIRTUAL_WIDTH / 2, 30, {
+    this.renderer.fonts.drawText(ctx, 'mediumFont', title, VIRTUAL_WIDTH / 2, 56, {
       align: 'center',
     });
 
-    this.renderer.fonts.drawText(ctx, 'mediumFont', cfg.leftTeam.name, 96, 86, { align: 'center' });
+    this.renderer.fonts.drawText(ctx, 'mediumFont', cfg.leftTeam.name, VIRTUAL_WIDTH / 2, 124, {
+      align: 'center',
+    });
     this.renderer.fonts.drawText(
       ctx,
       'bigFont',
       this.dataRepo.getText('versus'),
       VIRTUAL_WIDTH / 2,
-      134,
+      166,
       {
         align: 'center',
       },
     );
-    this.renderer.fonts.drawText(ctx, 'mediumFont', cfg.rightTeam.name, 304, 86, {
+    this.renderer.fonts.drawText(ctx, 'mediumFont', cfg.rightTeam.name, VIRTUAL_WIDTH / 2, 222, {
       align: 'center',
     });
 
-    const previewImg = this.assets.getImage(this.manifests.sprites.sprites.selectedPlayer.path);
-    if (previewImg) {
-      const frame = Math.floor(this.uiAnimTick / 4) % 12;
-      drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'selectBase_blue', frame, 96, 198);
-      drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'selectBase_red', frame, 304, 198);
+    const pulseFrame = Math.floor(this.uiAnimTick / 8) % 2;
+    const leftPlayerX = 54;
+    const leftPlayerY = 132;
+    const rightPlayerX = 346;
+    const rightPlayerY = 236;
 
+    drawStaticSprite(
+      ctx,
+      this.manifests.sprites,
+      this.assets,
+      'selection_J1',
+      pulseFrame,
+      leftPlayerX,
+      leftPlayerY,
+    );
+    drawStaticSprite(
+      ctx,
+      this.manifests.sprites,
+      this.assets,
+      'selection_J2',
+      pulseFrame,
+      rightPlayerX,
+      rightPlayerY,
+    );
+
+    const baseJugImg = this.assets.getImage(this.manifests.jugador.imagePath);
+    if (baseJugImg) {
       const leftSheet = this.renderer.paletteSwapper.getTeamPreviewSheet(
-        previewImg,
-        'selectedPlayer',
+        baseJugImg,
+        'Jugador',
         cfg.leftTeam,
       );
       const rightSheet = this.renderer.paletteSwapper.getTeamPreviewSheet(
-        previewImg,
-        'selectedPlayer',
+        baseJugImg,
+        'Jugador',
         cfg.rightTeam,
       );
-      drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'selectedPlayer', frame, 96, 196, {
-        imageOverride: leftSheet,
-      });
+      drawAnimatedSprite(
+        ctx,
+        this.manifests.jugador,
+        leftSheet,
+        0,
+        this.uiAnimTick,
+        leftPlayerX,
+        leftPlayerY,
+      );
+      drawAnimatedSprite(
+        ctx,
+        this.manifests.jugador,
+        rightSheet,
+        0,
+        this.uiAnimTick,
+        rightPlayerX,
+        rightPlayerY,
+      );
+    }
+
+    if (cfg.leftControl !== 'CPU') {
       drawStaticSprite(
         ctx,
         this.manifests.sprites,
         this.assets,
-        'selectedPlayer',
-        frame,
-        304,
-        196,
-        {
-          imageOverride: rightSheet,
-          flipX: true,
-        },
+        'various',
+        0,
+        leftPlayerX,
+        leftPlayerY - 46,
+      );
+    }
+    if (cfg.rightControl !== 'CPU') {
+      drawStaticSprite(
+        ctx,
+        this.manifests.sprites,
+        this.assets,
+        'various',
+        1,
+        rightPlayerX,
+        rightPlayerY - 46,
       );
     }
 
-    this.renderer.fonts.drawText(
+    const enterFrame = Math.floor(this.uiAnimTick / 12) % 2;
+    drawStaticSprite(
       ctx,
-      'smallFont',
-      this.dataRepo.getText('pressEnter'),
+      this.manifests.sprites,
+      this.assets,
+      'enterTip',
+      enterFrame,
       VIRTUAL_WIDTH / 2,
-      260,
-      {
-        align: 'center',
-      },
+      270,
     );
     this.renderer.present(this.dataRepo.getOptions().smoothPixels);
   }
@@ -1313,41 +1365,59 @@ export class AppController {
     const ctx = this.renderer.getVirtualContext();
 
     if (this.activeMatch.paused) {
-      drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'pauseBackground', 0, 0, 0, {
-        alpha: 0.72,
-      });
-      const options =
-        this.soccerPauseMenuStage === 'main'
-          ? [this.dataRepo.getText('pause_continue'), this.dataRepo.getText('pause_exit')]
-          : [this.dataRepo.getText('pause_exit_no'), this.dataRepo.getText('pause_exit_yes')];
+      drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'pauseBackground', 0, 0, 0);
 
-      this.renderer.fonts.drawText(ctx, 'bigFont', 'PAUSA', VIRTUAL_WIDTH / 2, 76, {
-        align: 'center',
-      });
-      for (let i = 0; i < options.length; i += 1) {
-        const y = 136 + i * 28;
-        if (i === this.soccerPauseIndex) {
-          drawStaticSprite(
-            ctx,
-            this.manifests.sprites,
-            this.assets,
-            'menuSelector',
-            0,
-            VIRTUAL_WIDTH / 2,
-            y + 6,
-          );
-        }
+      const mainItems = [
+        { label: this.dataRepo.getText('pause_continue'), x: 126, y: 124 },
+        { label: this.dataRepo.getText('pause_exit'), x: 232, y: 158 },
+      ];
+      const inConfirm = this.soccerPauseMenuStage === 'confirmExit';
+
+      for (let i = 0; i < mainItems.length; i += 1) {
+        const item = mainItems[i];
+        const isFocused = !inConfirm && i === this.soccerPauseIndex;
+        const isParentOpen = inConfirm && i === 1;
+        const label = isFocused ? `+ ${item.label} +` : item.label;
         this.renderer.fonts.drawText(
           ctx,
-          i === this.soccerPauseIndex ? 'mediumFont' : 'smallFont',
-          options[i],
-          VIRTUAL_WIDTH / 2,
-          y,
-          {
-            align: 'center',
-          },
+          isFocused || isParentOpen ? 'smallFont' : 'smallFontDisabled',
+          label,
+          item.x,
+          item.y,
+          { align: 'center' },
         );
       }
+
+      if (inConfirm) {
+        const confirmItems = [
+          { label: this.dataRepo.getText('pause_exit_no'), x: 232, y: 194 },
+          { label: this.dataRepo.getText('pause_exit_yes'), x: 292, y: 226 },
+        ];
+        for (let i = 0; i < confirmItems.length; i += 1) {
+          const item = confirmItems[i];
+          const isFocused = i === this.soccerPauseIndex;
+          const label = isFocused ? `+ ${item.label} +` : item.label;
+          this.renderer.fonts.drawText(
+            ctx,
+            isFocused ? 'smallFont' : 'smallFontDisabled',
+            label,
+            item.x,
+            item.y,
+            { align: 'center' },
+          );
+        }
+      }
+
+      const menuTipFrame = Math.floor(this.uiAnimTick / 15) % 4;
+      drawStaticSprite(
+        ctx,
+        this.manifests.sprites,
+        this.assets,
+        'menuTip',
+        menuTipFrame,
+        VIRTUAL_WIDTH / 2,
+        278,
+      );
     } else if (this.activeMatch.matchFinished) {
       drawStaticSprite(ctx, this.manifests.sprites, this.assets, 'pauseBackground', 0, 0, 0, {
         alpha: 0.78,

@@ -62,6 +62,32 @@ export function detachBall(ball: BallEntity, players: readonly PlayerEntity[]): 
 }
 
 /**
+ * Sincroniza la posición del balón sostenido en las manos durante un saque lateral (`sub_4349a0`).
+ */
+export function syncThrowInCarriedBall(
+  ball: BallEntity,
+  taker: PlayerEntity,
+  forwardOffset: number,
+): void {
+  const dir = facingVector(taker.facingDir);
+  ball.pos = {
+    x: taker.pos.x + dir.x * forwardOffset,
+    y: ACTION_CONFIG.throwInCarryHeight,
+    z: taker.pos.z + dir.z * forwardOffset,
+  };
+  ball.prevPos = cloneVec3(ball.pos);
+  ball.originPos = cloneVec3(ball.pos);
+  ball.fallingPos = cloneVec3(ball.pos);
+  ball.vel.x = 0;
+  ball.vel.y = 0;
+  ball.vel.z = 0;
+  ball.baseAcc.x = 0;
+  ball.baseAcc.y = 0;
+  ball.baseAcc.z = 0;
+  ball.spinAnimId = 20;
+}
+
+/**
  * Patada directa (`sub_425d40` @ `0x425d40`).
  */
 export function kickBallDirect(

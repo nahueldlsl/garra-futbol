@@ -27,7 +27,7 @@ interface SteerConfig {
   readonly slowRadius: number;
 }
 
-const ARRIVE_OUTFIELD: SteerConfig = { startRadius: 32, stopRadius: 12, slowRadius: 90 };
+const ARRIVE_OUTFIELD: SteerConfig = { startRadius: 38, stopRadius: 12, slowRadius: 90 };
 const ARRIVE_GK: SteerConfig = { startRadius: 12, stopRadius: 4, slowRadius: 40 };
 
 /**
@@ -140,7 +140,7 @@ export function computeTacticalTargets(
   const normBallZ = clamp(ball.fallingPos.z / FIELD.halfDepth, -1, 1);
   const ballShiftX = normBallX * 600;
   const ballShiftZ = normBallZ * 240;
-  const smoothAlpha = clamp(2.0 * dt, 0, 1);
+  const smoothAlpha = clamp(1.25 * dt, 0, 1);
 
   for (const player of team.players) {
     if (player.isGoalkeeper) {
@@ -183,6 +183,59 @@ export function computeTacticalTargets(
   }
 }
 
+function isBallAirborneForHeader(
+  player: PlayerEntity,
+  ball: BallEntity,
+  maxDist: number,
+  minHeight: number = ACTION_CONFIG.headerMinY,
+): boolean {
+  if (ball.ownerPlayerId !== null) {
+    return false;
+  }
+  const distBall = distXZ(player.pos, ball.pos);
+  if (distBall > maxDist) {
+    return false;
+  }
+  const predictedY = ball.pos.y + ball.vel.y * 0.14;
+  return (
+    (ball.pos.y >= minHeight && ball.pos.y <= ACTION_CONFIG.headerMaxY) ||
+    (ball.pos.y >= 26 &&
+      ball.vel.y > 110 &&
+      predictedY >= minHeight &&
+      predictedY <= ACTION_CONFIG.headerMaxY)
+  );
+}
+
+function startPlayerHeader(
+  player: PlayerEntity,
+  ball: BallEntity,
+  intent: 'shot' | 'pass',
+  events?: EventBus,
+): void {
+  const predX = ball.pos.x + ball.vel.x * 0.18;
+  const predZ = ball.pos.z + ball.vel.z * 0.18;
+  const dx = predX - player.pos.x;
+  const dz = predZ - player.pos.z;
+  const distPred = Math.hypot(dx, dz);
+  const jumpDir = distPred > 4 ? normalizeXZ(dx, dz) : facingVector(player.facingDir);
+  const jumpSpeed = clamp(distPred * 3.0, 0, ACTION_CONFIG.headerJumpHorizSpeed);
+
+  player.actionState = 'headerPrep';
+  player.headerIntent = intent;
+  player.stateTimer = 0.55;
+  if (distPred > 18) {
+    player.vel.x = jumpDir.x * jumpSpeed;
+    player.vel.z = jumpDir.z * jumpSpeed;
+  } else {
+    player.vel.x *= 0.65;
+    player.vel.z *= 0.65;
+  }
+  player.vel.y = ACTION_CONFIG.headerJumpVy;
+  player.baseAcc.y = -PLAYER_PHYSICS.gravity;
+  player.facingDir = vectorToFacingDirection(jumpDir.x, jumpDir.z, player.facingDir);
+  events?.emit('sound:play', { key: 'action', volumeScale: 0.55 });
+}
+
 /**
  * Actualiza `nearestPlayerIndex` y `activePlayerIndex` del equipo (`sub_42c080`) con histéresis.
  */
@@ -206,7 +259,12 @@ export function updateTeamNearestAndActive(
   }
 
   const currentNearest = team.players[team.nearestPlayerIndex];
-  if (!currentNearest || currentNearest.isGoalkeeper || isPlayerLockedInAction(currentNearest)) {
+  const nearestLockedAway =
+    currentNearest &&
+    isPlayerLockedInAction(currentNearest) &&
+    currentNearest.actionState !== 'headerPrep' &&
+    currentNearest.actionState !== 'header';
+  if (!currentNearest || currentNearest.isGoalkeeper || nearestLockedAway) {
     team.nearestPlayerIndex = nearest.indexInTeam;
   } else if (currentNearest.indexInTeam !== nearest.indexInTeam) {
     const currentDist = distXZ(currentNearest.pos, ball.fallingPos);
@@ -242,7 +300,13 @@ export function updateTeamNearestAndActive(
   }
 
   const busy = isPlayerLockedInAction(currentActive);
-  if (passSwitchPressed && !busy && team.activePlayerIndex !== chosenNearest.indexInTeam) {
+  const canHeadAirborne = isBallAirborneForHeader(currentActive, ball, ACTION_CONFIG.headerMaxDist);
+  if (
+    passSwitchPressed &&
+    !busy &&
+    !canHeadAirborne &&
+    team.activePlayerIndex !== chosenNearest.indexInTeam
+  ) {
     team.activePlayerIndex = chosenNearest.indexInTeam;
     return;
   }
@@ -305,6 +369,7 @@ export function isPlayerLockedInAction(player: PlayerEntity): boolean {
     player.actionState === 'headerPrep' ||
     player.actionState === 'header' ||
     player.actionState === 'evasion' ||
+    player.actionState === 'throwInHold' ||
     player.actionState === 'throwIn' ||
     player.actionState === 'gkJump' ||
     player.actionState === 'celebrate'
@@ -313,6 +378,7 @@ export function isPlayerLockedInAction(player: PlayerEntity): boolean {
 
 function advanceLockedPlayerState(
   player: PlayerEntity,
+  team: TeamEntity,
   ball: BallEntity,
   players: readonly PlayerEntity[],
   rng: DeterministicRNG,
@@ -336,9 +402,25 @@ function advanceLockedPlayerState(
       return true;
     }
 
+    case 'throwInHold': {
+      player.vel = vec3(0, 0, 0);
+      player.dirAcc = vec3(0, 0, 0);
+      return true;
+    }
+    case 'header': {
+      player.dirAcc = vec3(0, 0, 0);
+      player.linearFriction = PLAYER_PHYSICS.groundFriction;
+      if (player.pos.y <= 0 && player.vel.y <= 0 && player.stateTimer <= 0) {
+        player.pos.y = 0;
+        player.vel.y = 0;
+        player.baseAcc.y = 0;
+        player.actionState = 'idle';
+        player.maxSpeed = PLAYER_PHYSICS.maxSpeed * player.data.speed;
+      }
+      return true;
+    }
     case 'raise':
     case 'kick':
-    case 'header':
     case 'evasion':
     case 'throwIn': {
       player.dirAcc = vec3(0, 0, 0);
@@ -354,31 +436,73 @@ function advanceLockedPlayerState(
       player.dirAcc = vec3(0, 0, 0);
       player.linearFriction = 120;
       const distToBall = distXZ(player.pos, ball.pos);
-      if (!ball.ownerPlayerId && distToBall < 34 && Math.abs(player.pos.y + 18 - ball.pos.y) < 38) {
-        const goalX = player.teamSide * FIELD.halfWidth;
-        const goalZ = clamp(
-          player.aimOffsetY * (FIELD.goalHalfZ * 0.75),
-          -FIELD.goalHalfZ * 0.8,
-          FIELD.goalHalfZ * 0.8,
-        );
-        kickBallToTarget(
-          ball,
-          players,
-          player,
-          goalX,
-          goalZ,
-          ACTION_CONFIG.headerShotSpeed + 260,
-          0.08 * Math.PI,
-          0.25,
-          rng,
-          true,
-        );
+      const headY = player.pos.y + 24;
+      if (
+        !ball.ownerPlayerId &&
+        ball.immunityTimer <= 0.05 &&
+        distToBall < 42 &&
+        Math.abs(headY - ball.pos.y) < 38
+      ) {
+        if (player.headerIntent === 'pass') {
+          const fallback = facingVector(player.facingDir);
+          const aimX = Math.abs(player.vel.x) > 15 ? player.vel.x : fallback.x;
+          const aimZ =
+            player.aimOffsetY !== 0
+              ? player.aimOffsetY
+              : Math.abs(player.vel.z) > 15
+                ? player.vel.z
+                : fallback.z;
+          const receiver = findBestPassReceiver(team, player, aimX, aimZ);
+          if (receiver) {
+            kickBallToTarget(
+              ball,
+              players,
+              player,
+              receiver.pos.x + receiver.vel.x * 0.2,
+              receiver.pos.z + receiver.vel.z * 0.2,
+              ACTION_CONFIG.headerPassSpeed,
+              0.06 * Math.PI,
+              0,
+              rng,
+              true,
+            );
+          } else {
+            kickBallDirect(ball, players, player, aimX, aimZ, ACTION_CONFIG.headerPassSpeed, 0);
+          }
+          events?.emit('sound:play', { key: 'kick', volumeScale: 0.95 });
+        } else {
+          const inAttackZone = player.pos.x * player.teamSide > FIELD.halfWidth * 0.35;
+          const goalX = player.teamSide * FIELD.halfWidth;
+          const goalZ = clamp(
+            player.aimOffsetY * (FIELD.goalHalfZ * 0.78),
+            -FIELD.goalHalfZ * 0.85,
+            FIELD.goalHalfZ * 0.85,
+          );
+          const shotSpeed = inAttackZone
+            ? ACTION_CONFIG.headerShotPowerSpeed * (0.9 + player.data.power * 0.15)
+            : ACTION_CONFIG.headerShotSpeed + 220;
+          kickBallToTarget(
+            ball,
+            players,
+            player,
+            goalX,
+            goalZ,
+            shotSpeed,
+            0.07 * Math.PI,
+            inAttackZone ? 0.05 : 0.15,
+            rng,
+            true,
+          );
+          events?.emit('sound:play', {
+            key: inAttackZone ? 'powerKick' : 'kick',
+            volumeScale: 1.0,
+          });
+        }
         player.actionState = 'header';
-        player.stateTimer = 0.25;
-        events?.emit('sound:play', { key: 'kick', volumeScale: 1.0 });
+        player.stateTimer = 0.22;
         return true;
       }
-      if (player.pos.y <= 0 && player.vel.y <= 0 && player.stateTimer <= 0) {
+      if (player.pos.y <= 0 && player.vel.y <= 0 && player.stateTimer < 0.45) {
         player.actionState = 'idle';
         player.pos.y = 0;
         player.vel.y = 0;
@@ -587,7 +711,7 @@ export function updateFieldPlayerHuman(
   dt: number,
   events?: EventBus,
 ): void {
-  if (advanceLockedPlayerState(player, ball, players, rng, dt, events)) {
+  if (advanceLockedPlayerState(player, team, ball, players, rng, dt, events)) {
     return;
   }
 
@@ -695,27 +819,11 @@ export function updateFieldPlayerHuman(
   player.isChargingPass = false;
   player.passChargeTimer = 0;
 
-  if (shootInput.justPressed) {
-    const distBall = distXZ(player.pos, ball.pos);
-    const airborneForHeader =
-      !ball.ownerPlayerId &&
-      ball.pos.y >= ACTION_CONFIG.headerMinY &&
-      ball.pos.y <= ACTION_CONFIG.headerMaxY &&
-      distBall <= ACTION_CONFIG.headerMaxDist;
+  const airborneForHeader = isBallAirborneForHeader(player, ball, ACTION_CONFIG.headerMaxDist);
 
+  if (shootInput.justPressed) {
     if (airborneForHeader) {
-      const jumpDir = normalizeXZ(
-        ball.fallingPos.x - player.pos.x,
-        ball.fallingPos.z - player.pos.z,
-      );
-      player.actionState = 'headerPrep';
-      player.stateTimer = 0.5;
-      player.vel.x = jumpDir.x * ACTION_CONFIG.headerJumpHorizSpeed;
-      player.vel.z = jumpDir.z * ACTION_CONFIG.headerJumpHorizSpeed;
-      player.vel.y = ACTION_CONFIG.headerJumpVy;
-      player.baseAcc.y = -PLAYER_PHYSICS.gravity;
-      player.facingDir = vectorToFacingDirection(jumpDir.x, jumpDir.z, player.facingDir);
-      events?.emit('sound:play', { key: 'action', volumeScale: 0.55 });
+      startPlayerHeader(player, ball, 'shot', events);
     } else {
       const slideDir =
         Math.abs(move.x) > 0.05 || Math.abs(move.z) > 0.05
@@ -728,6 +836,8 @@ export function updateFieldPlayerHuman(
       player.facingDir = vectorToFacingDirection(slideDir.x, slideDir.z, player.facingDir);
       events?.emit('sound:play', { key: 'slide', volumeScale: 0.9 });
     }
+  } else if (passInput.justPressed && airborneForHeader) {
+    startPlayerHeader(player, ball, 'pass', events);
   }
 }
 
@@ -745,7 +855,7 @@ export function updateFieldPlayerAI(
   dt: number,
   events?: EventBus,
 ): void {
-  if (advanceLockedPlayerState(player, ball, players, rng, dt, events)) {
+  if (advanceLockedPlayerState(player, team, ball, players, rng, dt, events)) {
     return;
   }
 
@@ -788,22 +898,34 @@ export function updateFieldPlayerAI(
         return;
       }
 
-      const teammateAhead = findBestPassReceiver(team, player, team.side, 0);
-      const shouldPassUnderPressure = nearestOppDist < 125 && teammateAhead !== null;
+      const isWingCrossZone =
+        player.pos.x * team.side > FIELD.halfWidth * 0.25 && Math.abs(player.pos.z) > 210;
+      const crossMate = isWingCrossZone
+        ? findBestPassReceiver(team, player, team.side * 0.45, -Math.sign(player.pos.z))
+        : null;
+      const regularMate = findBestPassReceiver(team, player, team.side, 0);
+      const shouldCross =
+        crossMate !== null &&
+        (player.pos.x * team.side > FIELD.halfWidth * 0.45 || nearestOppDist < 165);
+      const passTarget = shouldCross ? crossMate : (regularMate ?? crossMate);
+      const shouldPassUnderPressure = nearestOppDist < 125 && passTarget !== null;
       const shouldPassTactically =
-        teammateAhead !== null &&
-        (teammateAhead.pos.x - player.pos.x) * team.side > 120 &&
+        passTarget !== null &&
+        (passTarget.pos.x - player.pos.x) * team.side > 120 &&
         rng.nextFloat() < 0.28 * clamp(player.data.skill * 0.5, 0.4, 1.2);
 
-      if (shouldPassUnderPressure || shouldPassTactically) {
+      if (shouldCross || shouldPassUnderPressure || shouldPassTactically) {
+        const charge = shouldCross
+          ? ACTION_CONFIG.passHighHoldThreshold + 0.08 + rng.nextFloat() * 0.14
+          : 0.06 + rng.nextFloat() * 0.09;
         executePlayerPass(
           player,
           team,
           ball,
           players,
-          teammateAhead!.pos.x - player.pos.x,
-          teammateAhead!.pos.z - player.pos.z,
-          rng.nextFloat() * 0.22,
+          passTarget!.pos.x - player.pos.x,
+          passTarget!.pos.z - player.pos.z,
+          charge,
           rng,
           events,
         );
@@ -820,6 +942,26 @@ export function updateFieldPlayerAI(
     player.dirAcc = vec3(dir.x, 0, dir.z);
     player.facingDir = facingWithHysteresis(player.facingDir, dir.x, dir.z);
     player.actionState = 'run';
+    return;
+  }
+
+  if (
+    isNearestChaser &&
+    player.aiCooldownTimer <= 0 &&
+    ball.immunityTimer <= 0.05 &&
+    ball.pos.y >= 46 &&
+    ball.vel.y < 100 &&
+    isBallAirborneForHeader(player, ball, 75, 46)
+  ) {
+    const attackingZone = player.pos.x * team.side > FIELD.halfWidth * 0.35;
+    const defensiveDanger = player.pos.x * team.side < -FIELD.halfWidth * 0.4;
+    const intent: 'shot' | 'pass' =
+      attackingZone || defensiveDanger || rng.nextFloat() < 0.45 ? 'shot' : 'pass';
+    if (intent === 'shot') {
+      player.aimOffsetY = rng.nextFloat() < 0.5 ? -1 : 1;
+    }
+    player.aiCooldownTimer = 0.7;
+    startPlayerHeader(player, ball, intent, events);
     return;
   }
 
@@ -879,7 +1021,7 @@ export function updateGoalkeeperAI(
   dt: number,
   events?: EventBus,
 ): void {
-  if (advanceLockedPlayerState(gk, ball, players, rng, dt, events)) {
+  if (advanceLockedPlayerState(gk, team, ball, players, rng, dt, events)) {
     return;
   }
 
@@ -1041,13 +1183,17 @@ export function updatePlayerAnimation(
         break;
       case 'headerPrep':
       case 'header':
-        desiredAnimId = player.facingDir === 6 ? 82 : 80;
+        desiredAnimId =
+          player.facingDir === 6 || (player.facingDir !== 2 && player.vel.x < -5) ? 82 : 80;
         break;
       case 'evasion':
         desiredAnimId = 90 + dirOffset;
         break;
+      case 'throwInHold':
+        desiredAnimId = player.facingDir === 4 ? 52 : 50;
+        break;
       case 'throwIn':
-        desiredAnimId = player.pos.z < 0 ? 54 : 56;
+        desiredAnimId = player.facingDir === 4 ? 56 : 54;
         break;
       case 'celebrate': {
         const celebAnims = [200, 210, 220, 230];

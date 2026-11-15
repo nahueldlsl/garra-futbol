@@ -1,4 +1,10 @@
-import { BALL_PHYSICS, FIELD, MATCH_TIMERS, PLAYER_PHYSICS } from '../config/gameConfig';
+import {
+  ACTION_CONFIG,
+  BALL_PHYSICS,
+  FIELD,
+  MATCH_TIMERS,
+  PLAYER_PHYSICS,
+} from '../config/gameConfig';
 import type { EventBus, MatchEventCode } from '../core/EventBus';
 import type { FormationsData } from '../data/types';
 import type { BallEntity } from '../entities/Ball';
@@ -7,7 +13,7 @@ import { getAllMatchPlayers, type MatchSessionState } from '../entities/MatchSta
 import type { PlayerEntity } from '../entities/Player';
 import { MATCH_SUB_STATE, type SetPieceInfo } from '../entities/Referee';
 import type { TeamEntity } from '../entities/Team';
-import { detachBall, updateBallFallingPos } from './BallPhysics';
+import { detachBall, syncThrowInCarriedBall, updateBallFallingPos } from './BallPhysics';
 
 export type RulesCheckOutcome = 'NONE' | 'POST_HIT' | 'GOAL' | 'OUT_OF_BOUNDS';
 
@@ -368,32 +374,36 @@ export function setupSetPiecePositions(
   } else {
     const takingTeam = setPiece.teamSide === 1 ? match.teamLeft : match.teamRight;
     const taker = selectSetPieceTaker(takingTeam, setPiece);
+    const isThrowIn = setPiece.type === 'THROW_IN_NORTH' || setPiece.type === 'THROW_IN_SOUTH';
     if (taker) {
-      const offsetBehind =
-        setPiece.type === 'THROW_IN_NORTH'
-          ? { dx: 0, dz: -10 }
-          : setPiece.type === 'THROW_IN_SOUTH'
-            ? { dx: 0, dz: 10 }
-            : { dx: -takingTeam.side * 12, dz: 0 };
-      taker.pos.x = clamp(
-        setPiece.ballPos.x + offsetBehind.dx,
-        -FIELD.playerLimitX,
-        FIELD.playerLimitX,
-      );
-      taker.pos.z = clamp(
-        setPiece.ballPos.z + offsetBehind.dz,
-        -FIELD.playerLimitZ,
-        FIELD.playerLimitZ,
-      );
-      taker.vel = vec3(0, 0, 0);
-      taker.facingDir =
-        setPiece.type === 'THROW_IN_NORTH'
-          ? 0
-          : setPiece.type === 'THROW_IN_SOUTH'
-            ? 4
-            : takingTeam.side === 1
-              ? 2
-              : 6;
+      if (isThrowIn) {
+        const isNorth = setPiece.type === 'THROW_IN_NORTH';
+        taker.pos.x = clamp(setPiece.ballPos.x, -FIELD.playerLimitX, FIELD.playerLimitX);
+        taker.pos.z = clamp(setPiece.ballPos.z, -FIELD.playerLimitZ, FIELD.playerLimitZ);
+        taker.vel = vec3(0, 0, 0);
+        taker.dirAcc = vec3(0, 0, 0);
+        taker.facingDir = isNorth ? 0 : 4;
+        taker.actionState = 'throwInHold';
+        taker.stateTimer = ACTION_CONFIG.throwInAutoTimeout;
+        taker.animId = isNorth ? 50 : 52;
+        taker.animStepIndex = 0;
+        taker.animTick = 0;
+        syncThrowInCarriedBall(ball, taker, ACTION_CONFIG.throwInHoldOffset);
+      } else {
+        const offsetBehind = { dx: -takingTeam.side * 12, dz: 0 };
+        taker.pos.x = clamp(
+          setPiece.ballPos.x + offsetBehind.dx,
+          -FIELD.playerLimitX,
+          FIELD.playerLimitX,
+        );
+        taker.pos.z = clamp(
+          setPiece.ballPos.z + offsetBehind.dz,
+          -FIELD.playerLimitZ,
+          FIELD.playerLimitZ,
+        );
+        taker.vel = vec3(0, 0, 0);
+        taker.facingDir = takingTeam.side === 1 ? 2 : 6;
+      }
       takingTeam.activePlayerIndex = taker.indexInTeam;
       takingTeam.nearestPlayerIndex = taker.indexInTeam;
     }

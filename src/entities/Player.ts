@@ -15,6 +15,7 @@ export type PlayerActionState =
   | 'headerPrep'
   | 'header'
   | 'evasion'
+  | 'throwInHold'
   | 'throwIn'
   | 'gkStand'
   | 'gkJump'
@@ -36,6 +37,7 @@ export interface PlayerEntity extends KinematicBody3D {
   shotChargeTimer: number;
   isChargingPass: boolean;
   passChargeTimer: number;
+  headerIntent: 'shot' | 'pass';
   aimOffsetY: -1 | 0 | 1;
   tacticalHome: Vec3;
   isSteering: boolean;
@@ -75,6 +77,7 @@ export function createPlayerEntity(
     shotChargeTimer: 0,
     isChargingPass: false,
     passChargeTimer: 0,
+    headerIntent: 'shot',
     aimOffsetY: 0,
     tacticalHome: vec3(0, 0, 0),
     isSteering: false,
